@@ -6,6 +6,7 @@
 GET     /                           controllers.ChatApplication.index
 GET     /react                      controllers.ChatApplication.indexReact
 GET     /chatFeed/:room             controllers.ChatApplication.chatFeed(room: String)
+GET     /chat                       controllers.ChatApplication.addMessage(payload: String)
 POST    /chat                       controllers.ChatApplication.postMessage
 
 # Map static resources from the /public folder to the /assets URL path

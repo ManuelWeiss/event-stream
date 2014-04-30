@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 import play.api.libs.json.JsValue
+import play.api.libs.json.Json
 import play.api.libs.iteratee.{Concurrent, Enumeratee}
 import play.api.libs.EventSource
 import play.api.libs.concurrent.Execution.Implicits._
@@ -19,6 +20,9 @@ object ChatApplication extends Controller {
 
   /** Controller action for POSTing chat messages */
   def postMessage = Action(parse.json) { req => chatChannel.push(req.body); Ok }
+
+  /** Controller action for adding chat messages via GET */
+  def addMessage(payload: String) = Action { req => chatChannel.push(Json.parse(payload)); Ok }
 
   /** Enumeratee for filtering messages based on room */
   def filter(room: String) = Enumeratee.filter[JsValue] { json: JsValue => (json \ "room").as[String] == room }
