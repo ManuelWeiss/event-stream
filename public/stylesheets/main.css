@@ -9,12 +9,10 @@ body {
     right: 10px;
     left: 30px;
     background: #AAA;
-    width: 420px;
 }
 
 .msg {
     padding: 10px;
-    width: 400px;
     background: #FF9966;
 }
 
@@ -40,8 +38,6 @@ body {
 
 #header {
     color: #EEE;
-    width: 400px;
-    height: 34px;
     font-weight: bold;
     padding: 10px;
     background: #666;
@@ -49,15 +45,9 @@ body {
 
 #footer {
     color: #EEE;
-    width: 400px;
-    height: 34px;
     font-weight: bold;
     padding: 10px;
     background: #666;
-}
-
-#roomSelect {
-    width: 85px;
 }
 
 .undo {
