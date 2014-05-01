@@ -7,7 +7,12 @@ angular.module('sseChat.controllers', ['sseChat.services'])
         $scope.msgs = [];
         $scope.inputText = "";
         $scope.user = "Jane Doe #" + Math.floor((Math.random() * 100) + 1);
-        $scope.currentStream = $scope.streams[0];
+
+        if(window.location.pathname === "/francesco") {
+            $scope.currentStream = $scope.streams[$scope.streams.length-1];
+        } else {
+            $scope.currentStream = $scope.streams[0];
+        }
 
         /** change current streams, restart EventSource connection */
         $scope.setCurrentStream = function (stream) {

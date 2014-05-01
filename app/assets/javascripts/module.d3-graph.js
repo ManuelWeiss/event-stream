@@ -20,9 +20,12 @@ angular.module('d3.graph', ['d3', 'sseChat'])
                         svg.append("g")
                             .attr("class", "lines");
 
-                        var width = 960,
-                            height = 450,
-                            radius = Math.min(width, height) / 2;
+                        var width = document.getElementById('main').getBoundingClientRect().width;
+                        var height = 300;
+
+                        //var width = 960,
+                        //    height = 450,
+                        var radius = Math.min(width, height) / 2;
 
                         var pie = d3.layout.pie()
                             .sort(null)
@@ -42,6 +45,15 @@ angular.module('d3.graph', ['d3', 'sseChat'])
 
                         var key = function(d){ return d.data.label; };
 
+                        /*var resizeTimer;
+                        window.onresize = function(event) {
+                            clearTimeout(resizeTimer);
+                            resizeTimer = setTimeout(function()
+                            {
+                                scope.render(scope.data);
+                            }, 100);
+                        }*/
+
                         var color = d3.scale.ordinal()
                             .range(["#00b196", "#c9cc38", "#32baec", "#aa519a", "#4058a4", "#797e89", "#3a3f56"]);
 
@@ -49,7 +61,7 @@ angular.module('d3.graph', ['d3', 'sseChat'])
                             scope.$apply();
                         };
 
-                        scope.data = angular.element(document.getElementById('header')).scope().msgs;
+                        scope.data = angular.element(document.getElementById('main')).scope().msgs;
 
                         scope.$watch(function() {
                             return angular.element($window)[0].innerWidth;
