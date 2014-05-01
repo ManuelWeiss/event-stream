@@ -1,4 +1,4 @@
-angular.module('d3.visualization', ['d3'])
+angular.module('d3.visualization', ['d3', 'sseChat'])
     .directive('d3Visualization', ['$window', '$timeout', 'd3Service',
         function($window, $timeout, d3Service) {
             return {
