@@ -25,7 +25,8 @@
             </div>
             <div id="chat">
                 <div class="{{msg.who}} msg" ng-repeat="msg in msgs | limitTo:-4" ng-class="msg.user === 'Juliet' ? 'juliet' : msg.user !== user ? 'others' : ''">{{msg.time}}<br/>
-                <strong>{{msg.user}} says: </strong>{{msg.text}}<br/>
+                    <p>USER: {{msg.user}}</p>
+                    <p>USER: {{msg.page}}</p>
                 </div>
             </div>
             <div id="footer">

@@ -92,16 +92,6 @@ angular.module('d3.graph', ['d3', 'sseChat'])
                                 }
                             }
 
-
-
-                            /*var data = [{
-                                label: "ippo",
-                                value: 2
-                            },{
-                                label: "ippa",
-                                value: 4
-                            }];*/
-
                             /* ------- PIE SLICES ------- */
                             var slice = svg.select(".slices").selectAll("path.slice")
                                 .data(pie(data), key);
