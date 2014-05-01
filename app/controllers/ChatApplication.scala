@@ -21,6 +21,9 @@ object ChatApplication extends Controller {
   /** Controller action serving Francesco chat page */
   def indexFrancesco = Action { Ok(views.html.francesco("Moonfruit Data Visualization")) }
 
+  /** Controller action serving Claudia chat page */
+  def indexClaudia = Action { Ok(views.html.claudia("Moonfruit Data Visualization")) }
+
   /** Controller action for POSTing chat messages */
   def postMessage = Action(parse.json) { req => chatChannel.push(req.body); Ok }
 

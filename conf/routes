@@ -6,6 +6,7 @@
 GET     /                           controllers.ChatApplication.index
 GET     /react                      controllers.ChatApplication.indexReact
 GET     /francesco                  controllers.ChatApplication.indexFrancesco
+GET     /claudia                    controllers.ChatApplication.indexClaudia
 GET     /chatFeed/:stream           controllers.ChatApplication.chatFeed(stream: String)
 GET     /chat                       controllers.ChatApplication.addMessage(payload: String)
 POST    /chat                       controllers.ChatApplication.postMessage

@@ -1,0 +1,49 @@
+events@(title: String)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+
+        <link rel="stylesheet" media="screen" href="@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/francesco.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+
+        <script src='@routes.WebJarAssets.at(WebJarAssets.locate("angular.min.js"))'></script>
+        <script src='@routes.Assets.at("javascripts/vendor/ui-bootstrap-tpls-0.10.0.min.js")'></script>
+
+
+    </head>
+    <body ng-app="dataVisualization">
+        <div ng-controller="ChatCtrl">
+            <div id="header">
+                Your User: <input type="text" name="user" id="userField" value="John Doe" ng-model="user" />
+                <select ng-model="currentStream" ng-change="setCurrentStream(currentStream)"
+                  ng-options="r.name for r in streams" id="streamSelect"></select>
+            </div>
+            <div id="chat">
+                <div class="{{msg.who}} msg" ng-repeat="msg in msgs | limitTo:-4" ng-class="msg.user === 'Juliet' ? 'juliet' : msg.user !== user ? 'others' : ''">{{msg.time}}<br/>
+                <strong>{{msg.user}} says: </strong>{{msg.text}}<br/>
+                </div>
+            </div>
+            <div id="footer">
+                <form ng-submit="submitMsg()">
+                    <input type="text" name="chat" id="textField" ng-model="inputText"
+                     placeholder="Say something" class="ng-pristine ng-valid input-block-level" />
+                    <input type="button" class="btn btn-primary" id="saySomething" value="Submit" ng-click="submitMsg()" />
+                </form>
+            </div>
+        </div>
+
+        <div d3-visualization bar-height="20" bar-padding="5"></div>
+
+        <script src='@routes.Assets.at("javascripts/app.js")'></script>
+        <script src='@routes.Assets.at("javascripts/services.js")'></script>
+        <script src='@routes.Assets.at("javascripts/controllers.js")'></script>
+
+        <script src='@routes.Assets.at("javascripts/module.d3.js")'></script>
+        <script src='@routes.Assets.at("javascripts/module.d3-visualization.js")'></script>
+
+    </body>
+</html>
