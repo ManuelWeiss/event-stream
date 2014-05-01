@@ -10,7 +10,6 @@ angular.module('d3.visualization', ['d3', 'sseChat'])
                 link: function(scope, ele, attrs) {
                     d3Service.d3().then(function(d3) {
 
-                        var renderTimeout;
                         var margin = parseInt(attrs.margin) || 20,
                             barHeight = parseInt(attrs.barHeight) || 20,
                             barPadding = parseInt(attrs.barPadding) || 5;
@@ -23,12 +22,7 @@ angular.module('d3.visualization', ['d3', 'sseChat'])
                             scope.$apply();
                         };
 
-                        scope.data = [
-                            {name: "Test1", score: 90},
-                            {name: "Test2", score: 15},
-                            {name: "Test3", score: 45},
-                            {name: "Test4", score: 10}
-                        ];
+                        scope.data = angular.element(document.getElementById('header')).scope().msgs;
 
                         scope.$watch(function() {
                             return angular.element($window)[0].innerWidth;
@@ -44,15 +38,13 @@ angular.module('d3.visualization', ['d3', 'sseChat'])
                             svg.selectAll('*').remove();
 
                             if (!data) return;
-                            if (renderTimeout) clearTimeout(renderTimeout);
 
-                            renderTimeout = $timeout(function() {
                                 var width = d3.select(ele[0])[0][0].offsetWidth - margin,
                                     height = scope.data.length * (barHeight + barPadding),
                                     color = d3.scale.category20(),
                                     xScale = d3.scale.linear()
                                         .domain([0, d3.max(data, function(d) {
-                                            return d.score;
+                                            return d.user.userId;
                                         })])
                                         .range([0, width]);
 
@@ -66,18 +58,15 @@ angular.module('d3.visualization', ['d3', 'sseChat'])
                                         return scope.onClick({item: d});
                                     })
                                     .attr('height', barHeight)
-                                    .attr('width', 140)
                                     .attr('x', Math.round(margin/2))
                                     .attr('y', function(d,i) {
                                         return i * (barHeight + barPadding);
                                     })
                                     .attr('fill', function(d) {
-                                        return color(d.score);
+                                        return color(d.user.userId);
                                     })
-                                    .transition()
-                                    .duration(1000)
                                     .attr('width', function(d) {
-                                        return xScale(d.score);
+                                        return xScale(d.user.userId);
                                     });
                                 svg.selectAll('text')
                                     .data(data)
@@ -89,9 +78,8 @@ angular.module('d3.visualization', ['d3', 'sseChat'])
                                     })
                                     .attr('x', 15)
                                     .text(function(d) {
-                                        return d.name + " (scored: " + d.score + ")";
+                                        return d.user.price_id + " (scored: " + d.user.userId + ")";
                                     });
-                            }, 200);
                         };
                     });
                 }}
