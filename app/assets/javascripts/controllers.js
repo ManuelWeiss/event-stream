@@ -1,8 +1,8 @@
 'use strict';
 
 /** Controllers */
-angular.module('sseChat.controllers', ['sseChat.services']).
-    controller('ChatCtrl', function ($scope, $http, chatModel) {
+angular.module('sseChat.controllers', ['sseChat.services'])
+    .controller('ChatCtrl', function ($scope, $http, chatModel) {
         $scope.streams = chatModel.getStreams();
         $scope.msgs = [];
         $scope.inputText = "";
