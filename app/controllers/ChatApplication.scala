@@ -24,18 +24,18 @@ object ChatApplication extends Controller {
   /** Controller action for adding chat messages via GET */
   def addMessage(payload: String) = Action { req => chatChannel.push(Json.parse(payload)); Ok }
 
-  /** Enumeratee for filtering messages based on room */
-  def filter(room: String) = Enumeratee.filter[JsValue] { json: JsValue => (json \ "room").as[String] == room }
+  /** Enumeratee for filtering messages based on stream */
+  def filter(stream: String) = Enumeratee.filter[JsValue] { json: JsValue => (json \ "stream").as[String] == stream }
 
   /** Enumeratee for detecting disconnect of SSE stream */
   def connDeathWatch(addr: String): Enumeratee[JsValue, JsValue] =
     Enumeratee.onIterateeDone{ () => println(addr + " - SSE disconnected") }
 
-  /** Controller action serving activity based on room */
-  def chatFeed(room: String) = Action { req =>
+  /** Controller action serving activity based on stream */
+  def chatFeed(stream: String) = Action { req =>
     println(req.remoteAddress + " - SSE connected")
     Ok.feed(chatOut
-      &> filter(room)
+      &> filter(stream)
       &> Concurrent.buffer(50)
       &> connDeathWatch(req.remoteAddress)
       &> EventSource()

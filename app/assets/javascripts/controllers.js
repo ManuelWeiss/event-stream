@@ -3,15 +3,15 @@
 /** Controllers */
 angular.module('sseChat.controllers', ['sseChat.services']).
     controller('ChatCtrl', function ($scope, $http, chatModel) {
-        $scope.rooms = chatModel.getRooms();
+        $scope.streams = chatModel.getStreams();
         $scope.msgs = [];
         $scope.inputText = "";
         $scope.user = "Jane Doe #" + Math.floor((Math.random() * 100) + 1);
-        $scope.currentRoom = $scope.rooms[0];
+        $scope.currentStream = $scope.streams[0];
 
-        /** change current room, restart EventSource connection */
-        $scope.setCurrentRoom = function (room) {
-            $scope.currentRoom = room;
+        /** change current streams, restart EventSource connection */
+        $scope.setCurrentStream = function (stream) {
+            $scope.currentStream = stream;
             $scope.chatFeed.close();
             $scope.msgs = [];
             $scope.listen();
@@ -20,7 +20,7 @@ angular.module('sseChat.controllers', ['sseChat.services']).
         /** posting chat text to server */
         $scope.submitMsg = function () {
             $http.post("/chat", { text: $scope.inputText, user: $scope.user,
-                time: (new Date()).toUTCString(), room: $scope.currentRoom.value });
+                time: (new Date()).toUTCString(), stream: $scope.currentStream.value });
             $scope.inputText = "";
         };
 
@@ -29,9 +29,9 @@ angular.module('sseChat.controllers', ['sseChat.services']).
             $scope.$apply(function () { $scope.msgs.push(JSON.parse(msg.data)); });
         };
 
-        /** start listening on messages from selected room */
+        /** start listening on messages from selected streams */
         $scope.listen = function () {
-            $scope.chatFeed = new EventSource("/chatFeed/" + $scope.currentRoom.value);
+            $scope.chatFeed = new EventSource("/chatFeed/" + $scope.currentStream.value);
             $scope.chatFeed.addEventListener("message", $scope.addMsg, false);
         };
 

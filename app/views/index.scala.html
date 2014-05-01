@@ -21,9 +21,9 @@
         
         <div ng-controller="ChatCtrl">
             <div id="header">
-                Your Name: <input type="text" name="user" id="userField" value="John Doe" ng-model="user" />
-                <select ng-model="currentRoom" ng-change="setCurrentRoom(currentRoom)" 
-                  ng-options="r.name for r in rooms" id="roomSelect"></select>
+                Your User: <input type="text" name="user" id="userField" value="John Doe" ng-model="user" />
+                <select ng-model="currentStream" ng-change="setCurrentStream(currentStream)"
+                  ng-options="r.name for r in streams" id="streamSelect"></select>
             </div>
 
             <div id="chat">

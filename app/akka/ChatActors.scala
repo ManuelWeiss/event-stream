@@ -45,7 +45,7 @@ class Chatter(name: String, events: Seq[String]) extends Actor {
     case ChatActors.Talk  => {
       val now: String = DateTime.now.toString
       val event = events(Random.nextInt(events.size))
-      val msg = Json.obj("room" -> "room1", "text" -> event, "user" ->  name, "time" -> now )
+      val msg = Json.obj("stream" -> "stream1", "text" -> event, "user" ->  name, "time" -> now )
 
       ChatApplication.chatChannel.push(msg)
     }

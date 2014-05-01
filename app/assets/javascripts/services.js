@@ -1,15 +1,15 @@
 'use strict';
 
-/** chatModel service, provides chat rooms (could as well be loaded from server) */
+/** chatModel service, provides chat Streams (could as well be loaded from server) */
 angular.module('sseChat.services', []).service('chatModel', function () {
-    var getRooms = function () {
+    var getStreams = function () {
         return [
-            {name: 'Room 1', value: 'room1'},
-            {name: 'Room 2', value: 'room2'},
-            {name: 'Room 3', value: 'room3'},
-            {name: 'Room 4', value: 'room4'},
-            {name: 'Room 5', value: 'room5'}
+            {name: 'Streams 1', value: 'stream1'},
+            {name: 'Streams 2', value: 'stream2'},
+            {name: 'Streams 3', value: 'stream3'},
+            {name: 'Streams 4', value: 'stream4'},
+            {name: 'Streams 5', value: 'stream5'}
         ];
     };
-    return { getRooms: getRooms };
+    return { getStreams: getStreams };
 });
