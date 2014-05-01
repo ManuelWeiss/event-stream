@@ -4,11 +4,12 @@
 angular.module('sseChat.services', []).service('chatModel', function () {
     var getStreams = function () {
         return [
-            {name: 'Streams 1', value: 'stream1'},
-            {name: 'Streams 2', value: 'stream2'},
-            {name: 'Streams 3', value: 'stream3'},
-            {name: 'Streams 4', value: 'stream4'},
-            {name: 'Streams 5', value: 'stream5'}
+            {name: 'Registration', value: 'registration'},
+            {name: 'Login', value: 'login'},
+            {name: 'Site Created', value: 'site-created'},
+            {name: 'Subscription', value: 'subscription'},
+            {name: 'Cancellation', value: 'cancellation'},
+            {name: 'Page View', value: 'page-view'}
         ];
     };
     return { getStreams: getStreams };

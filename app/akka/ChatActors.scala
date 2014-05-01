@@ -26,46 +26,187 @@ object ChatActors {
 /** Supervisor initiating sample event actors and scheduling their talking */
 class Supervisor() extends Actor {
 
-  val user1 = context.actorOf(Props(new Chatter("user1", UserEvents.user1)))
-  context.system.scheduler.schedule(1 seconds, 8 seconds, user1, ChatActors.Talk)
-
-  val user2 = context.actorOf(Props(new Chatter("user2", UserEvents.user2)))
-  context.system.scheduler.schedule(3 seconds, 8 seconds, user2, ChatActors.Talk)
-
-  val user3 = context.actorOf(Props(new Chatter("user3", UserEvents.user3)))
-  context.system.scheduler.schedule(5 seconds, 8 seconds, user3, ChatActors.Talk)
+  val events = context.actorOf(Props(new Chatter(UserEvents.events)))
+  context.system.scheduler.schedule(1 seconds, 2 seconds, events, ChatActors.Talk)
 
   def receive = { case _ => }
 }
 
 /** Chat participant actors picking events at random when told to talk */
-class Chatter(name: String, events: Seq[String]) extends Actor {
+class Chatter(events: Seq[JsObject]) extends Actor {
 
   def receive = {
     case ChatActors.Talk  => {
-      val now: String = DateTime.now.toString
       val event = events(Random.nextInt(events.size))
-      val msg = Json.obj("stream" -> "stream1", "text" -> event, "user" ->  name, "time" -> now )
 
-      ChatApplication.chatChannel.push(msg)
+      ChatApplication.chatChannel.push(event)
     }
   }
 }
 
 object UserEvents {
-  val user1 = Seq("is on homepage",
-                "is on blog",
-                "is on pricing page",
-                "signed up for trial",
-                "clicked on signup")
-  val user2 = Seq("is on homepage",
-                "is on kickstart page",
-                "is on careers page",
-                "signed up for kickstart")
-  val user3 = Seq("is on homepage",
-                "logged in",
-                "is on dashboard page",
-                "logged out",
-                "is editing page",
-                "created a new site")
+  val events = Seq(
+    Json.obj(
+        "stream" -> "registration",
+        "user" -> Json.obj (
+          "userId" -> 34242423,
+          "language" -> "en-GB",
+          "returning" -> false,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "registration",
+        "user" -> Json.obj (
+          "userId" -> 4564564,
+          "language" -> "en-GB",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "registration",
+        "user" -> Json.obj (
+          "userId" -> 34534535,
+          "language" -> "en-GB",
+          "returning" -> false,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "login",
+        "user" -> Json.obj (
+          "userId" -> 6456456,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "KA52CM"
+        )
+    ),
+    Json.obj(
+        "stream" -> "login",
+        "user" -> Json.obj (
+          "userId" -> 3453453,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "login",
+        "user" -> Json.obj (
+          "userId" -> 5676422,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "52CM1A"
+        )
+    ),
+    Json.obj(
+        "stream" -> "site-creation",
+        "user" -> Json.obj (
+          "userId" -> 5676422,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "site-creation",
+        "user" -> Json.obj (
+          "userId" -> 34534535,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "52CM1A"
+        )
+    ),
+    Json.obj(
+        "stream" -> "site-creation",
+        "user" -> Json.obj (
+          "userId" -> 34242423,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "site-creation",
+        "user" -> Json.obj (
+          "userId" -> 4546456,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "site-creation",
+        "user" -> Json.obj (
+          "userId" -> 34534534,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "subscription",
+        "user" -> Json.obj (
+          "userId" -> 5676422,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "subscription",
+        "user" -> Json.obj (
+          "userId" -> 34534535,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "52CM1A"
+        )
+    ),
+    Json.obj(
+        "stream" -> "subscription",
+        "user" -> Json.obj (
+          "userId" -> 34242423,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "subscription",
+        "user" -> Json.obj (
+          "userId" -> 4546456,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "52CM1A"
+        )
+    ),
+    Json.obj(
+        "stream" -> "subscription",
+        "user" -> Json.obj (
+          "userId" -> 6456456,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "cancellation",
+        "user" -> Json.obj (
+          "userId" -> 5676422,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "cancellation",
+        "user" -> Json.obj (
+          "userId" -> 353453,
+          "language" -> "en-US",
+          "returning" -> true,
+          "price_id" -> "52CM1A"
+        )
+    )
+  )
 }
