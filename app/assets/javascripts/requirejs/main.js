@@ -85,22 +85,21 @@ require([
 
         // some fun colors
         var colors = [
-            '#b58900',
-            '#cb4b16',
-            '#dc322f',
-            '#d33682',
-            '#6c71c4',
-            '#268bd2',
-            '#2aa198',
-            '#859900'
+            '#520E24',
+            '#8F2041',
+            '#DC554F',
+            '#FF905E',
+            '#FFDB77'
         ];
 
-        function createCircle () {
-            var v = Physics.vector(0, 300);
-            var b, r;
-            var l = Math.floor((Math.random() * colors.length), 0) - 1;
+        var l = 20;
+        var v = Physics.vector(0, 300);
 
-            r = (5 + Math.random()*30)|0;
+        function createCircle () {
+            var b, r;
+
+            r = (20 + Math.random()*30)|0;
+
             b = Physics.body('circle', {
                 radius: r
                 ,mass: r
@@ -109,18 +108,26 @@ require([
                 ,vx: v.perp().mult(0.0001).x
                 ,vx: v.y
                 ,styles: {
-                    fillStyle: colors[l]
+                    fillStyle: colors[colors.length - 1]
+                },
+                options: {
+                    color: colors.length - 1
                 }
             });
 
             v.perp(true)
                 .mult(10000)
-                .rotate(Math.floor((Math.random() * 200), 0) / 3);
+                .rotate(l / 3);
 
             // add things to the world
             world.add(b);
 
-            window.setTimeout(removeCircle, 3000, b);
+            window.setTimeout(updateCircle, 2000, b);
+            window.setTimeout(removeCircle, 15000, b);
+        }
+
+        function updateCircle(circle) {
+            circle.styles.fillStyle = colors[circle.options.color - 1];
         }
 
         function removeCircle (circle) {
