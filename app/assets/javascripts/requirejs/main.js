@@ -10,8 +10,13 @@ require.config({
 });
 
 require([
-    'physicsjs',
-    'physicsjs/bodies/circle'
-], function( Physics ){
+    'physicsjs/renderers/canvas',
+    'physicsjs/bodies/circle',
+    'physicsjs/bodies/convex-polygon',
+    'physicsjs/behaviors/newtonian',
+    'physicsjs/behaviors/sweep-prune',
+    'physicsjs/behaviors/body-collision-detection',
+    'physicsjs/behaviors/body-impulse-response'
+], function(require, Physics){
 
 });
