@@ -43,23 +43,7 @@ angular.module('d3.graph', ['d3', 'sseChat'])
                         var key = function(d){ return d.data.label; };
 
                         var color = d3.scale.ordinal()
-                            .domain(["4564564", "34534535", "amet", "consectetur", "adipisicing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt"])
-                            .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-                        /*
-                        function randomData (){
-                            var labels = color.domain();
-                            return labels.map(function(label){
-                                return { label: label, value: Math.random() }
-                            });
-                        }
-
-                        change(randomData());
-
-                        d3.select(".randomize")
-                            .on("click", function(){
-                                change(randomData());
-                            });
-                        */
+                            .range(["#00b196", "#c9cc38", "#32baec", "#aa519a", "#4058a4", "#797e89", "#3a3f56"]);
 
                         $window.onresize = function() {
                             scope.$apply();
@@ -74,12 +58,15 @@ angular.module('d3.graph', ['d3', 'sseChat'])
                         });
 
                         scope.$watch('data', function(newData) {
-                            scope.render(newData);
+                            if (newData && newData[0] && newData[0].page && newData[0].page.category) {
+                                scope.render(newData);
+                            }
+
                         }, true);
 
                         scope.render = function(eventData) {
                             var countData = _.countBy(eventData, function(_event){
-                                return _event.user.userId;
+                                return _event.page.category;
                             });
 
                             var data = [];
