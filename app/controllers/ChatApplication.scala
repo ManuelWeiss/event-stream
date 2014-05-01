@@ -19,7 +19,7 @@ object ChatApplication extends Controller {
   def indexReact = Action { Ok(views.html.react("Chat using Server Sent Events and React")) }
 
   /** Controller action serving Francesco chat page */
-    def indexFrancesco = Action { Ok(views.html.francesco("Chat using Server Sent Events and Francesco")) }
+  def indexFrancesco = Action { Ok(views.html.francesco("Moonfruit Data Visualization")) }
 
   /** Controller action for POSTing chat messages */
   def postMessage = Action(parse.json) { req => chatChannel.push(req.body); Ok }
