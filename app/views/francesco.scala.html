@@ -11,6 +11,7 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 
         <script src='@routes.WebJarAssets.at(WebJarAssets.locate("angular.min.js"))'></script>
+        <script src='@routes.Assets.at("javascripts/vendor/underscore-min.js")'></script>
         <script src='@routes.Assets.at("javascripts/vendor/ui-bootstrap-tpls-0.10.0.min.js")'></script>
 
         
@@ -36,7 +37,9 @@
             </div>
         </div>
 
-        <div d3-visualization bar-height="20" bar-padding="5"></div>
+        <!--<div d3-visualization bar-height="20" bar-padding="5"></div>-->
+
+        <div d3-graph bar-height="20" bar-padding="5"></div>
 
         <script src='@routes.Assets.at("javascripts/app.js")'></script>
         <script src='@routes.Assets.at("javascripts/services.js")'></script>
@@ -44,6 +47,7 @@
 
         <script src='@routes.Assets.at("javascripts/module.d3.js")'></script>
         <script src='@routes.Assets.at("javascripts/module.d3-visualization.js")'></script>
+        <script src='@routes.Assets.at("javascripts/module.d3-graph.js")'></script>
  
     </body>
 </html>
