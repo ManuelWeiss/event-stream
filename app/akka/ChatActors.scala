@@ -85,7 +85,7 @@ object UserEvents {
           "userId" -> 34242423,
           "language" -> "en-GB",
           "returning" -> true,
-          "price_id" -> "SMT"
+          "price_id" -> "KA52CM"
         )
     ),
     Json.obj(
@@ -113,7 +113,7 @@ object UserEvents {
           "userId" -> 4564564,
           "language" -> "en-GB",
           "returning" -> true,
-          "price_id" -> "SMT"
+          "price_id" -> "KA52CM"
         )
     ),
     Json.obj(
@@ -155,7 +155,7 @@ object UserEvents {
           "userId" -> 34534535,
           "language" -> "en-GB",
           "returning" -> false,
-          "price_id" -> "SMT"
+          "price_id" -> "KA52CM"
         )
     ),
     Json.obj(

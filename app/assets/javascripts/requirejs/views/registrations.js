@@ -3,9 +3,9 @@ var REGISTRATIONS = function (Physics) {
         var viewWidth = window.innerWidth,
             viewHeight = window.innerHeight,
             // center of the window
-            center = Physics.vector(viewWidth, viewHeight).mult(0.5),
+            center = Physics.vector(viewWidth, viewHeight - 50).mult(0.5),
             // bounds of the window
-            viewportBounds = Physics.aabb(0, 0, viewWidth, viewHeight),
+            viewportBounds = Physics.aabb(0, 50, viewWidth, viewHeight - 50),
             edgeBounce,
             renderer,
             registrations = {};
@@ -59,7 +59,8 @@ var REGISTRATIONS = function (Physics) {
         };
 
         // Circle colours
-        var color = { r: 255, g: 204, b: 153 };
+        var color = { r: 201, g: 204, b: 56 };
+        var ksColor = { r: 50, g: 186, b: 236 };
 
         var l = 20;
 
@@ -67,8 +68,10 @@ var REGISTRATIONS = function (Physics) {
             var b,
                 r = 15,
                 v = Physics.vector(center.x, center.y),
-                strokeStyle = event.user.returning ? { r: 255, g: 255, b: 255 } : { r: 0, g: 0, b: 0 },
-                lineWidth = event.user.returning ? 10 : 0;
+                user = event.user,
+                strokeStyle = user.returning ? { r: 255, g: 255, b: 255 } : { r: 0, g: 0, b: 0 },
+                lineWidth = user.returning ? 10 : 0,
+                startingColor = user.price_id === "KA52CM" ? ksColor : color;
 
             b = Physics.body('circle', {
                 radius: 0,
@@ -79,12 +82,12 @@ var REGISTRATIONS = function (Physics) {
                 vy: v.y,
                 restitution: 1,
                 styles: {
-                    fillStyle: setColor(color),
+                    fillStyle: setColor(startingColor),
                     strokeStyle: setColor(strokeStyle),
                     lineWidth: lineWidth
                 },
                 options: {
-                    color: { r: color.r, g: color.g, b: color.b },
+                    color: { r: startingColor.r, g: startingColor.g, b: startingColor.b },
                     strokeColor: { r: strokeStyle.r, g: strokeStyle.g, b: strokeStyle.b }
                 }
             });
@@ -126,7 +129,7 @@ var REGISTRATIONS = function (Physics) {
 
         function tint (color) {
             for (var key in color) {
-                color[key] = color[key] > 0 ? color[key] - 1 : color[key];
+                color[key] = color[key] > 8 ? color[key] - 1 : color[key];
             }
 
             return color;

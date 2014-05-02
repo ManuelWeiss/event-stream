@@ -3,9 +3,9 @@ var REGISTRATIONS_PER_PAGE = function (Physics) {
         var viewWidth = window.innerWidth,
             viewHeight = window.innerHeight,
             // center of the window
-            center = Physics.vector(viewWidth, viewHeight).mult(0.5),
+            center = Physics.vector(viewWidth, viewHeight - 50).mult(0.5),
             // bounds of the window
-            viewportBounds = Physics.aabb(0, 0, viewWidth, viewHeight),
+            viewportBounds = Physics.aabb(0, 50, viewWidth, viewHeight - 50),
             edgeBounce,
             renderer,
             pages = {};
@@ -59,7 +59,7 @@ var REGISTRATIONS_PER_PAGE = function (Physics) {
         };
 
         // Circle colours
-        var color = { r: 255, g: 204, b: 153 };
+        var color = { r: 0, g: 177, b: 150 };
 
         var l = 20;
 
@@ -104,7 +104,7 @@ var REGISTRATIONS_PER_PAGE = function (Physics) {
 
                     circle.view = undefined;
 
-                if (circle.geometry.radius < 200) {
+                if (circle.geometry.radius < 150) {
                     circle.geometry.radius += 1;
                     circle.recalc();
                 }
@@ -133,7 +133,7 @@ var REGISTRATIONS_PER_PAGE = function (Physics) {
 
         function tint (color) {
             for (var key in color) {
-                color[key] = color[key] > 20 ? color[key] - 1 : color[key];
+                color[key] = color[key] > 8 ? color[key] - 1 : color[key];
             }
 
             return color;
