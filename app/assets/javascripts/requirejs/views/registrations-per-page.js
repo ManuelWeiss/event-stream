@@ -5,7 +5,7 @@ var REGISTRATIONS_PER_PAGE = function (Physics) {
             // center of the window
             center = Physics.vector(viewWidth, viewHeight - 50).mult(0.5),
             // bounds of the window
-            viewportBounds = Physics.aabb(0, 50, viewWidth, viewHeight - 50),
+            viewportBounds = Physics.aabb(0, 50, viewWidth, viewHeight),
             edgeBounce,
             renderer,
             pages = {};

@@ -362,9 +362,9 @@ object UserEvents {
             "environment" -> "development"
         ),
         "user" -> Json.obj (
-          "userId" -> 5676422,
+          "userId" -> 0,
           "language" -> "en-US",
-          "returning" -> true,
+          "returning" -> false,
           "price_id" -> "SMT"
         )
     ),

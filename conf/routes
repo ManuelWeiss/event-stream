@@ -9,6 +9,7 @@ GET     /pie                        controllers.ChatApplication.indexPie
 GET     /bullet                     controllers.ChatApplication.indexBullet
 GET     /physics/registrations      controllers.ChatApplication.indexPhysicsRegistrations
 GET     /physics/registrations/page controllers.ChatApplication.indexPhysicsRegistrationsPage
+GET     /physics/pageviews          controllers.ChatApplication.indexPhysicsPageviews
 GET     /chatFeed/:stream           controllers.ChatApplication.chatFeed(stream: String)
 GET     /chat                       controllers.ChatApplication.addMessage(payload: String)
 POST    /chat                       controllers.ChatApplication.postMessage

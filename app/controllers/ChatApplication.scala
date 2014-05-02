@@ -30,6 +30,9 @@ object ChatApplication extends Controller {
   /** Controller action serving Physics registration per page page */
   def indexPhysicsRegistrationsPage = Action { Ok(views.html.physicsRegistrationsPage("User registrations per page - Moonfruit Data Visualization")) }
 
+  /** Controller action serving Physics registration per page page */
+  def indexPhysicsPageviews = Action { Ok(views.html.physicsPageviews("Moonfruit Pageviews - Moonfruit Data Visualization")) }
+
   /** Controller action for POSTing chat messages */
   def postMessage = Action(parse.json) { req => chatChannel.push(req.body); Ok }
 
