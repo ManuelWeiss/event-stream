@@ -75,7 +75,7 @@ var REGISTRATIONS = function (Physics) {
                 mass: r,
                 x: v.x,
                 y: v.y,
-                vx: v.rotate(Math.random() * (360 - 25) + 25).mult(0.0003).x,
+                vx: v.rotate(Math.random() * (360 - 25) + 25).mult(0.0002).x,
                 vy: v.y,
                 restitution: 1,
                 styles: {
@@ -95,7 +95,7 @@ var REGISTRATIONS = function (Physics) {
             // add things to the world
             world.add(b);
 
-            window.setTimeout(updateCircle, 3000, b);
+            window.setTimeout(updateCircle, 5000, b);
         }
 
         function updateCircle(circle) {
