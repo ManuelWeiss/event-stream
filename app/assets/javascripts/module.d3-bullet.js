@@ -263,24 +263,48 @@ angular.module('bullet', ['d3', 'sseChat'])
                             //scope.render(newData);
                             countData = newData.length
                             function getData(d) {
-                                return {
+                                return [{
                                     "title":"Registrations",
                                     "subtitle":"Number",
-                                    "ranges":[100,150,250],
-                                    "measures":[countData, 180],
-                                    "markers":[160]
-                                };
+                                    "ranges":[200,250,350],
+                                    "measures":[countData, 350],
+                                    "markers":[260]
+                                },{
+                                    "title":"PageViews",
+                                    "subtitle":"%",
+                                    "ranges":[600,700,900],
+                                    "measures":[countData, 900],
+                                    "markers":[760]
+                                },{
+                                    "title":"New Users",
+                                    "subtitle":"%",
+                                    "ranges":[50,70,100],
+                                    "measures":[Math.floor((Math.random() * 10) + 65), 100],
+                                    "markers":[90]
+                                }];
                             }
 
-                            svg.datum(getData).call(chart.duration(1000));
+                            svg.data(getData).call(chart.duration(500));
                         }, true);
 
                         data = [{
                             "title":"Registrations",
                             "subtitle":"Number",
-                            "ranges":[100,150,250],
-                            "measures":[0, 180],
-                            "markers":[160]
+                            "ranges":[200,250,350],
+                            "measures":[0, 350],
+                            "markers":[260]
+                        },{
+                            "title":"PageViews",
+                            "subtitle":"Number",
+                            "ranges":[600,700,900],
+                            "measures":[0, 900],
+                            "markers":[760]
+                        },{
+                            "title":"New Users",
+                            "subtitle":"%",
+                            "ranges":[50,70,100],
+                            "measures":[65, 100],
+                            "markers":[90]
                         }];
                             var svg = d3.select(ele[0]).selectAll("svg")
                                 .data(data)
