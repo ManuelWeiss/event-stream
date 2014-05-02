@@ -16,7 +16,7 @@
 
         
     </head>
-    <body ng-app="dataVisualization">
+    <body ng-app="bullet">
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -31,7 +31,8 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="/">Home</a></li>
-                        <li class="active"><a href="/francesco">Francesco</a></li>
+                        <li class="active"><a href="/bullet">Bullet</a></li>
+                        <li class="active"><a href="/pie">Pie</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -41,22 +42,7 @@
             <div class="starter-template">
                 <h1>Page views on qa.dev</h1>
                 <div class="container" id="main" ng-controller="ChatCtrl">
-                    <div class="row">
-                        <div class="col-md-6" ng-click="count = 0" ng-init="count = 1">
-                            PieChart
-                        </div>
-                        <div class="col-md-6" ng-click="count = 1">
-                            BulletChart
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div id="pie" class="col-md-12" ng-show="count === 0">
-                            <div d3-pie></div>
-                        </div>
-                        <div id="bulletchart" class="col-md-12" ng-show="count === 1">
-                            <div d3-bulletchart></div>
-                        </div>
-                    </div>
+                    <div id="bullet" d3-bulletchart></div>
                 </div>
             </div>
         </div>
@@ -66,7 +52,7 @@
         <script src='@routes.Assets.at("javascripts/controllers.js")'></script>
 
         <script src='@routes.Assets.at("javascripts/module.d3.js")'></script>
-        <script src='@routes.Assets.at("javascripts/module.d3-visualization.js")'></script>
+        <script src='@routes.Assets.at("javascripts/module.d3-bullet.js")'></script>
  
     </body>
 </html>

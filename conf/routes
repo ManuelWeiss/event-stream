@@ -5,7 +5,8 @@
 # Home page
 GET     /                           controllers.ChatApplication.index
 GET     /react                      controllers.ChatApplication.indexReact
-GET     /francesco                  controllers.ChatApplication.indexFrancesco
+GET     /pie                        controllers.ChatApplication.indexPie
+GET     /bullet                     controllers.ChatApplication.indexBullet
 GET     /claudia                    controllers.ChatApplication.indexClaudia
 GET     /chatFeed/:stream           controllers.ChatApplication.chatFeed(stream: String)
 GET     /chat                       controllers.ChatApplication.addMessage(payload: String)

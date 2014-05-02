@@ -1,4 +1,4 @@
-angular.module('dataVisualization', ['d3', 'sseChat'])
+angular.module('bullet', ['d3', 'sseChat'])
     .directive('d3Bulletchart', ['$window', '$timeout', 'd3Service',
         function($window, $timeout, d3Service) {
             return {
@@ -9,102 +9,13 @@ angular.module('dataVisualization', ['d3', 'sseChat'])
                 },
                 link: function(scope, ele, attrs) {
                     d3Service.d3().then(function(d3) {
-                        var margin = {top: 5, right: 40, bottom: 20, left: 120},
-                            width = 960 - margin.left - margin.right,
-                            height = 80 - margin.top - margin.bottom;
 
-                        var chart = d3.bullet()
-                            .width(width)
-                            .height(height);
-
-                        /*
-                        scope.data = [
-                            {
-                                "title":"Registrations",
-                                "subtitle":"Number",
-                                "ranges":[150,225,300],
-                                "measures":[220,270],
-                                "markers":[250]
-                            }
-                        ];
-                         */
-
-                        scope.data = angular.element(document.getElementById('main')).scope().msgs;
-
-
-
-                        scope.$watch(function() {
-                            return angular.element(document.getElementById('main'))[0].offsetWidth;
-                        }, function() {
-                            scope.render(scope.data);
-                        });
-
-                        scope.$watch('data', function(newData) {
-                            scope.render(newData);
-                        }, true);
-
-                        scope.render = function(eventData) {
-
-
-                            var countData = eventData.length;
-
-                            data = [
-                                {
-                                    "title":"Registrations",
-                                    "subtitle":"Number",
-                                    "ranges":[150,225,300],
-                                    "measures":[countData,280],
-                                    "markers":[250]
-                                }
-                            ];
-
-
-                            var svg = d3.select(ele[0]).selectAll("svg")
-                                .data(data)
-                                .enter().append("svg")
-                                .attr("class", "bullet")
-                                .attr("width", width + margin.left + margin.right)
-                                .attr("height", height + margin.top + margin.bottom)
-                                .append("g")
-                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-                                .call(chart);
-
-                            var title = svg.append("g")
-                                .style("text-anchor", "end")
-                                .attr("transform", "translate(-6," + height / 2 + ")");
-
-                            title.append("text")
-                                .attr("class", "title")
-                                .text(function(d) { return d.title; });
-
-                            title.append("text")
-                                .attr("class", "subtitle")
-                                .attr("dy", "1em")
-                                .text(function(d) { return d.subtitle; });
-
-                        };
-
-
-                    });
-                }
-            }
-        }])
-    .directive('d3Pie', ['$window', '$timeout', 'd3Service',
-        function($window, $timeout, d3Service) {
-            return {
-                restrict: 'A',
-                scope: {
-                    label: '@',
-                    onClick: '&'
-                },
-                link: function(scope, ele, attrs) {
-                    d3Service.d3().then(function(d3) {
 
                         // Chart design based on the recommendations of Stephen Few. Implementation
                         // based on the work of Clint Ivy, Jamie Love, and Jason Davies.
                         // http://projects.instantcognition.com/protovis/bulletchart/
                         d3.bullet = function() {
-                            var orient = "left", // TODO top & bottom
+                            var orient = "left",
                                 reverse = false,
                                 duration = 0,
                                 ranges = bulletRanges,
@@ -338,25 +249,29 @@ angular.module('dataVisualization', ['d3', 'sseChat'])
                             };
                         }
 
-                        var svg = d3.select(ele[0])
-                            .append("svg")
-                            .append("g")
+                        /*
+                        scope.data = [
+                            {
+                                "title":"Registrations",
+                                "subtitle":"Number",
+                                "ranges":[150,225,300],
+                                "measures":[220,270],
+                                "markers":[250]
+                            }
+                        ];
+                         */
 
-                        svg.append("g")
-                            .attr("class", "slices");
-                        svg.append("g")
-                            .attr("class", "labels");
-                        svg.append("g")
-                            .attr("class", "lines");
+                        var margin = {top: 5, right: 40, bottom: 20, left: 120},
+                            width = 960 - margin.left - margin.right,
+                            height = 80 - margin.top - margin.bottom;
 
-                        var color = d3.scale.ordinal()
-                            .range(["#00b196", "#c9cc38", "#32baec", "#aa519a", "#4058a4", "#797e89", "#3a3f56"]);
-
-                        $window.onresize = function() {
-                            scope.$apply();
-                        };
+                        var chart = d3.bullet()
+                            .width(width)
+                            .height(height);
 
                         scope.data = angular.element(document.getElementById('main')).scope().msgs;
+
+
 
                         scope.$watch(function() {
                             return angular.element(document.getElementById('main'))[0].offsetWidth;
@@ -365,141 +280,51 @@ angular.module('dataVisualization', ['d3', 'sseChat'])
                         });
 
                         scope.$watch('data', function(newData) {
-                            if (newData && newData[0] && newData[0].page && newData[0].page.category) {
-                                scope.render(newData);
-                            }
-
+                            scope.render(newData);
                         }, true);
 
                         scope.render = function(eventData) {
-                            var countData = _.countBy(eventData, function(_event){
-                                return _event.page.category;
-                            });
-
-                            var width = document.getElementById('main').getBoundingClientRect().width;
-                            var height = 300;
-
-                            var radius = Math.min(width, height) / 2;
-
-                            var pie = d3.layout.pie()
-                                .sort(null)
-                                .value(function(d) {
-                                    return d.value;
-                                });
-
-                            var arc = d3.svg.arc()
-                                .outerRadius(radius * 0.8)
-                                .innerRadius(radius * 0.4);
-
-                            var outerArc = d3.svg.arc()
-                                .innerRadius(radius * 0.9)
-                                .outerRadius(radius * 0.9);
-
-                            svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-                            var key = function(d){ return d.data.label; };
 
 
+                            var countData = eventData.length;
 
-                            var data = [];
-                            for (var k in countData) {
-                                if (countData.hasOwnProperty(k)) {
-                                    data.push({
-                                        label: k,
-                                        value: countData[k]
-                                    });
+                            data = [
+                                {
+                                    "title":"Registrations",
+                                    "subtitle":"Number",
+                                    "ranges":[150,225,300],
+                                    "measures":[countData,280],
+                                    "markers":[250]
                                 }
-                            }
+                            ];
 
-                            /* ------- PIE SLICES ------- */
-                            var slice = svg.select(".slices").selectAll("path.slice")
-                                .data(pie(data), key);
 
-                            slice.enter()
-                                .insert("path")
-                                .style("fill", function(d) { return color(d.data.label); })
-                                .attr("class", "slice");
+                            var svg = d3.select(ele[0]).selectAll("svg")
+                                .data(data)
+                                .enter().append("svg")
+                                .attr("class", "bullet")
+                                .attr("width", width + margin.left + margin.right)
+                                .attr("height", height + margin.top + margin.bottom)
+                                .append("g")
+                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                                .call(chart);
 
-                            slice
-                                .transition().duration(1000)
-                                .attrTween("d", function(d) {
-                                    this._current = this._current || d;
-                                    var interpolate = d3.interpolate(this._current, d);
-                                    this._current = interpolate(0);
-                                    return function(t) {
-                                        return arc(interpolate(t));
-                                    };
-                                })
+                            var title = svg.append("g")
+                                .style("text-anchor", "end")
+                                .attr("transform", "translate(-6," + height / 2 + ")");
 
-                            slice.exit()
-                                .remove();
+                            title.append("text")
+                                .attr("class", "title")
+                                .text(function(d) { return d.title; });
 
-                            // ------- TEXT LABELS -------
-
-                            var text = svg.select(".labels").selectAll("text")
-                                .data(pie(data), key);
-
-                            text.enter()
-                                .append("text")
-                                .attr("dy", ".35em")
-                                .text(function(d) {
-                                    return d.data.label;
-                                });
-
-                            function midAngle(d){
-                                return d.startAngle + (d.endAngle - d.startAngle)/2;
-                            }
-
-                            text.transition().duration(1000)
-                                .attrTween("transform", function(d) {
-                                    this._current = this._current || d;
-                                    var interpolate = d3.interpolate(this._current, d);
-                                    this._current = interpolate(0);
-                                    return function(t) {
-                                        var d2 = interpolate(t);
-                                        var pos = outerArc.centroid(d2);
-                                        pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
-                                        return "translate("+ pos +")";
-                                    };
-                                })
-                                .styleTween("text-anchor", function(d){
-                                    this._current = this._current || d;
-                                    var interpolate = d3.interpolate(this._current, d);
-                                    this._current = interpolate(0);
-                                    return function(t) {
-                                        var d2 = interpolate(t);
-                                        return midAngle(d2) < Math.PI ? "start":"end";
-                                    };
-                                });
-
-                            text.exit()
-                                .remove();
-
-                            // ------- SLICE TO TEXT POLYLINES -------
-
-                            var polyline = svg.select(".lines").selectAll("polyline")
-                                .data(pie(data), key);
-
-                            polyline.enter()
-                                .append("polyline");
-
-                            polyline.transition().duration(1000)
-                                .attrTween("points", function(d){
-                                    this._current = this._current || d;
-                                    var interpolate = d3.interpolate(this._current, d);
-                                    this._current = interpolate(0);
-                                    return function(t) {
-                                        var d2 = interpolate(t);
-                                        var pos = outerArc.centroid(d2);
-                                        pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-                                        return [arc.centroid(d2), outerArc.centroid(d2), pos];
-                                    };
-                                });
-
-                            polyline.exit()
-                                .remove();
+                            title.append("text")
+                                .attr("class", "subtitle")
+                                .attr("dy", "1em")
+                                .text(function(d) { return d.subtitle; });
 
                         };
+
+
                     });
                 }
             }

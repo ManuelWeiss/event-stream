@@ -18,8 +18,11 @@ object ChatApplication extends Controller {
   /** Controller action serving React chat page */
   def indexReact = Action { Ok(views.html.react("Chat using Server Sent Events and React")) }
 
-  /** Controller action serving Francesco chat page */
-  def indexFrancesco = Action { Ok(views.html.francesco("Moonfruit Data Visualization")) }
+  /** Controller action serving Pie chat page */
+  def indexPie = Action { Ok(views.html.pie("Moonfruit Data Visualization")) }
+
+  /** Controller action serving Bullet chat page */
+  def indexBullet = Action { Ok(views.html.bullet("Moonfruit Data Visualization")) }
 
   /** Controller action serving Claudia chat page */
   def indexClaudia = Action { Ok(views.html.claudia("Moonfruit Data Visualization")) }
