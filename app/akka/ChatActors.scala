@@ -27,7 +27,7 @@ object ChatActors {
 class Supervisor() extends Actor {
 
   val events = context.actorOf(Props(new Chatter(UserEvents.events)))
-  context.system.scheduler.schedule(1 seconds, 0.3 seconds, events, ChatActors.Talk)
+  context.system.scheduler.schedule(1 seconds, 0.1 seconds, events, ChatActors.Talk)
 
   def receive = { case _ => }
 }
@@ -112,7 +112,7 @@ object UserEvents {
         "user" -> Json.obj (
           "userId" -> 34534535,
           "language" -> "en-GB",
-          "returning" -> false,
+          "returning" -> true,
           "price_id" -> "SMT"
         )
     ),

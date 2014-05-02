@@ -48,8 +48,8 @@ var REGISTRATIONS = function (Physics) {
         var registrationFeed = new EventSource("/chatFeed/registration");
         registrationFeed.addEventListener("message", registrationReceived, false);
 
-        function registrationReceived () {
-            createCircle();
+        function registrationReceived (event) {
+            createCircle(JSON.parse(event.data));
         };
 
         // Circle colours
@@ -63,21 +63,25 @@ var REGISTRATIONS = function (Physics) {
 
         var l = 20;
 
-        function createCircle () {
-            var b, r;
-            var v = Physics.vector(center.x, center.y);
-
-            r = 15;
+        function createCircle (event) {
+            var b,
+                r = 15,
+                v = Physics.vector(center.x, center.y),
+                strokeStyle = event.user.returning ? "white" : "none",
+                lineWidth = event.user.returning ? 10 : 0;
 
             b = Physics.body('circle', {
                 radius: r,
                 mass: r,
                 x: v.x,
                 y: v.y,
-                vx: v.rotate(Math.random() * (360 - 25) + 25).mult(0.0001).x,
+                vx: v.rotate(Math.random() * (360 - 25) + 25).mult(0.0003).x,
                 vy: v.y,
+                restitution: 1,
                 styles: {
-                    fillStyle: colors[colors.length - 1]
+                    fillStyle: colors[colors.length - 1],
+                    strokeStyle: strokeStyle,
+                    lineWidth: lineWidth
                 },
                 options: {
                     color: colors.length - 1
@@ -113,6 +117,7 @@ var REGISTRATIONS = function (Physics) {
 
         world.add([
             Physics.behavior('body-impulse-response'),
+            Physics.behavior('body-collision-detection'),
             Physics.behavior('sweep-prune'),
             edgeBounce
         ]);
