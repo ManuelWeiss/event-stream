@@ -271,34 +271,29 @@ angular.module('bullet', ['d3', 'sseChat'])
 
                         scope.data = angular.element(document.getElementById('main')).scope().msgs;
 
-
-
-                        scope.$watch(function() {
-                            return angular.element(document.getElementById('main'))[0].offsetWidth;
-                        }, function() {
-                            scope.render(scope.data);
-                        });
-
                         scope.$watch('data', function(newData) {
-                            scope.render(newData);
-                        }, true);
-
-                        scope.render = function(eventData) {
-
-
-                            var countData = eventData.length;
-
-                            data = [
-                                {
+                            //scope.render(newData);
+                            countData = newData.length
+                            function getData(d) {
+                                return {
                                     "title":"Registrations",
                                     "subtitle":"Number",
                                     "ranges":[150,225,300],
-                                    "measures":[countData,280],
+                                    "measures":[countData, 280],
                                     "markers":[250]
-                                }
-                            ];
+                                };
+                            }
 
+                            svg.datum(getData).call(chart.duration(1000));
+                        }, true);
 
+                        data = [{
+                            "title":"Registrations",
+                            "subtitle":"Number",
+                            "ranges":[100,150,200],
+                            "measures":[0, 180],
+                            "markers":[160]
+                        }];
                             var svg = d3.select(ele[0]).selectAll("svg")
                                 .data(data)
                                 .enter().append("svg")
@@ -322,7 +317,6 @@ angular.module('bullet', ['d3', 'sseChat'])
                                 .attr("dy", "1em")
                                 .text(function(d) { return d.subtitle; });
 
-                        };
 
 
                     });
