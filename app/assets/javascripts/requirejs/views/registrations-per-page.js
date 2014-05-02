@@ -1,4 +1,4 @@
-var REGISTRATIONS = function (Physics) {
+var REGISTRATIONS_PER_PAGE = function (Physics) {
     Physics(function(world){
         var viewWidth = window.innerWidth,
             viewHeight = window.innerHeight,
@@ -8,7 +8,7 @@ var REGISTRATIONS = function (Physics) {
             viewportBounds = Physics.aabb(0, 0, viewWidth, viewHeight),
             edgeBounce,
             renderer,
-            registrations = {};
+            pages = {};
 
         // create a renderer
         renderer = Physics.renderer('canvas', {
@@ -23,9 +23,9 @@ var REGISTRATIONS = function (Physics) {
         world.on('step', function () {
             world.render();
 
-            for (var key in registrations) {
-                updateCircle(registrations[key]);
-                growCircle(registrations[key]);
+            for (var key in pages) {
+                updateCircle(pages[key]);
+                growCircle(pages[key]);
             }
         });
 
@@ -65,55 +65,63 @@ var REGISTRATIONS = function (Physics) {
 
         function createCircle (event) {
             var b,
-                r = 15,
+                r = 0,
                 v = Physics.vector(center.x, center.y),
-                strokeStyle = event.user.returning ? { r: 255, g: 255, b: 255 } : { r: 0, g: 0, b: 0 },
-                lineWidth = event.user.returning ? 10 : 0;
+                page = event.page.path,
+                circle;
 
-            b = Physics.body('circle', {
-                radius: 0,
-                mass: r,
-                x: v.x,
-                y: v.y,
-                vx: v.rotate(Math.random() * (360 - 25) + 25).mult(0.0002).x,
-                vy: v.y,
-                restitution: 1,
-                styles: {
-                    fillStyle: setColor(color),
-                    strokeStyle: setColor(strokeStyle),
-                    lineWidth: lineWidth
-                },
-                options: {
-                    color: { r: color.r, g: color.g, b: color.b },
-                    strokeColor: { r: strokeStyle.r, g: strokeStyle.g, b: strokeStyle.b }
+            if (!pages[page]) {
+                b = Physics.body('circle', {
+                    radius: r,
+                    mass: 20,
+                    x: v.x,
+                    y: v.y,
+                    vx: v.rotate(Math.random() * (360 - 25) + 25).mult(0.0001).x,
+                    vy: v.y,
+                    restitution: 1,
+                    styles: {
+                        fillStyle: setColor(color)
+                    },
+                    options: {
+                        color: { r: color.r, g: color.g, b: color.b }
+                    }
+                });
+
+                v.perp(true)
+                    .mult(10000)
+                    .rotate(l / 3);
+
+                // add things to the world
+                world.add(b);
+
+                pages[page] = b;
+            } else {
+                circle = pages[page];
+
+
+                    circle.options.color = { r: color.r, g: color.g, b: color.b };
+                    circle.styles.fillStyle = setColor(circle.options.color);
+
+                    circle.view = undefined;
+
+                if (circle.geometry.radius < 200) {
+                    circle.geometry.radius += 1;
+                    circle.recalc();
                 }
-            });
-
-            v.perp(true)
-                .mult(10000)
-                .rotate(l / 3);
-
-            // add things to the world
-            world.add(b);
-
-            registrations[b.uid] = b;
-
-            window.setTimeout(removeCircle, 20000, b);
+            }
         }
 
         function growCircle (circle) {
-            if (circle.geometry.radius < 15) {
+            if (circle.geometry.radius < 35) {
                 circle.geometry.radius += 1;
                 circle.recalc();
             }
         }
 
-        function updateCircle (circle) {
+        function updateCircle(circle) {
             if (circle.options.color !== 0) {
                 circle.options.color = tint(circle.options.color);
                 circle.styles.fillStyle = setColor(circle.options.color);
-                circle.options.strokeColor = tint(circle.options.strokeColor);
-                circle.styles.strokeStyle = setColor(circle.options.strokeColor);
 
                 circle.view = undefined;
             }
@@ -121,12 +129,11 @@ var REGISTRATIONS = function (Physics) {
 
         function removeCircle (circle) {
             world.remove(circle);
-            delete registrations[circle.uid];
         }
 
         function tint (color) {
             for (var key in color) {
-                color[key] = color[key] > 0 ? color[key] - 1 : color[key];
+                color[key] = color[key] > 20 ? color[key] - 1 : color[key];
             }
 
             return color;

@@ -63,6 +63,48 @@ object UserEvents {
     Json.obj(
         "stream" -> "registration",
         "page" -> Json.obj (
+            "category" -> "Dashboard",
+            "path" -> "/",
+            "environment" -> "development"
+        ),
+        "user" -> Json.obj (
+          "userId" -> 34242423,
+          "language" -> "en-GB",
+          "returning" -> false,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "registration",
+        "page" -> Json.obj (
+            "category" -> "Dashboard",
+            "path" -> "/",
+            "environment" -> "development"
+        ),
+        "user" -> Json.obj (
+          "userId" -> 34242423,
+          "language" -> "en-GB",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "registration",
+        "page" -> Json.obj (
+            "category" -> "Dashboard",
+            "path" -> "/",
+            "environment" -> "development"
+        ),
+        "user" -> Json.obj (
+          "userId" -> 34242423,
+          "language" -> "en-GB",
+          "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "registration",
+        "page" -> Json.obj (
             "category" -> "404",
             "path" -> "/signup/register",
             "environment" -> "development"
@@ -71,6 +113,20 @@ object UserEvents {
           "userId" -> 4564564,
           "language" -> "en-GB",
           "returning" -> true,
+          "price_id" -> "SMT"
+        )
+    ),
+    Json.obj(
+        "stream" -> "registration",
+        "page" -> Json.obj (
+            "category" -> "404",
+            "path" -> "/signup/register",
+            "environment" -> "development"
+        ),
+        "user" -> Json.obj (
+          "userId" -> 4564564,
+          "language" -> "en-GB",
+          "returning" -> false,
           "price_id" -> "SMT"
         )
     ),
