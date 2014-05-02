@@ -7,7 +7,8 @@ GET     /                           controllers.ChatApplication.index
 GET     /react                      controllers.ChatApplication.indexReact
 GET     /pie                        controllers.ChatApplication.indexPie
 GET     /bullet                     controllers.ChatApplication.indexBullet
-GET     /claudia                    controllers.ChatApplication.indexClaudia
+GET     /physics/registrations      controllers.ChatApplication.indexPhysicsRegistrations
+GET     /physics/registrations/page controllers.ChatApplication.indexPhysicsRegistrationsPage
 GET     /chatFeed/:stream           controllers.ChatApplication.chatFeed(stream: String)
 GET     /chat                       controllers.ChatApplication.addMessage(payload: String)
 POST    /chat                       controllers.ChatApplication.postMessage

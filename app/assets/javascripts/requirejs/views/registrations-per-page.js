@@ -76,7 +76,7 @@ var REGISTRATIONS_PER_PAGE = function (Physics) {
                     mass: 20,
                     x: v.x,
                     y: v.y,
-                    vx: v.rotate(Math.random() * (360 - 25) + 25).mult(0.0001).x,
+                    vx: v.rotate(Math.random() * (360 - 25) + 25).mult(0.0002).x,
                     vy: v.y,
                     restitution: 1,
                     styles: {

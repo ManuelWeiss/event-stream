@@ -20,7 +20,6 @@ require([
     'physicsjs/behaviors/sweep-prune',
     'physicsjs/behaviors/body-collision-detection',
     'physicsjs/behaviors/body-impulse-response',
-    'views/registrations',
     'views/registrations-per-page'
 ], function (Physics) {
     REGISTRATIONS_PER_PAGE(Physics);

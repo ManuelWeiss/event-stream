@@ -1,0 +1,17 @@
+@(title: String)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/claudia.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.WebJarAssets.at(WebJarAssets.locate("angular.min.js"))"></script>
+    </head>
+    <body>
+
+        <script data-main="@routes.Assets.at("javascripts/requirejs/registrations-per-page")" src="@routes.Assets.at("javascripts/requirejs/require.js")"></script>
+    </body>
+</html>
