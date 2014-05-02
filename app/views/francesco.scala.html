@@ -42,7 +42,7 @@
                 <h1>Page views on qa.dev</h1>
                 <div class="container" id="main" ng-controller="ChatCtrl">
                     <div class="row">
-                        <div class="col-md-6" ng-click="count = 0" ng-init="count = 0">
+                        <div class="col-md-6" ng-click="count = 0" ng-init="count = 1">
                             PieChart
                         </div>
                         <div class="col-md-6" ng-click="count = 1">
@@ -50,10 +50,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12" ng-show="count === 0">
+                        <div id="pie" class="col-md-12" ng-show="count === 0">
                             <div d3-pie></div>
                         </div>
-                        <div class="col-md-12" ng-show="count === 1">
+                        <div id="bulletchart" class="col-md-12" ng-show="count === 1">
                             <div d3-bulletchart></div>
                         </div>
                     </div>

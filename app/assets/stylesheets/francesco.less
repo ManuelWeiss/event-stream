@@ -6,16 +6,19 @@ body {
   text-align: center;
 }
 
-path.slice{
+#pie {
+  path.slice{
     stroke-width:2px;
-}
+  }
 
-polyline{
+  polyline{
     opacity: .3;
     stroke: #CCC;
     stroke-width: 2px;
     fill: none;
+  }
 }
+
 #main {
   .col-md-6 {
     text-align:center;
@@ -23,43 +26,44 @@ polyline{
       background-color:#CCC;
     }
   }
-
 }
 
-.bullet {
-  font: 10px sans-serif;
-  .title {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  .subtitle {
-    fill: #999;
-  }
-  .marker {
-    stroke: #000;
-    stroke-width: 2px;
-  }
-  .tick line {
-    stroke: #666;
-    stroke-width: .5px;
-  }
-  .range {
-    &.s0{
-      fill: #00b196;
+#bulletchart {
+  .bullet {
+    font: 10px sans-serif;
+    .title {
+      font-size: 14px;
+      font-weight: bold;
     }
-    &.s1 {
-      fill: #c9cc38;
+    .subtitle {
+      fill: #999;
     }
-    &.s2 {
-      fill: #aa519a;
+    .marker {
+      stroke: #000;
+      stroke-width: 2px;
     }
-  }
-  .measure {
-    &.s0 {
-      fill: #666;
+    .tick line {
+      stroke: #666;
+      stroke-width: .5px;
     }
-    &.s1 {
-      fill: #000
+    .range {
+      &.s0{
+        fill: #00b196;
+      }
+      &.s1 {
+        fill: #c9cc38;
+      }
+      &.s2 {
+        fill: #aa519a;
+      }
+    }
+    .measure {
+      &.s0 {
+        fill: #666;
+      }
+      &.s1 {
+        fill: #000
+      }
     }
   }
 }

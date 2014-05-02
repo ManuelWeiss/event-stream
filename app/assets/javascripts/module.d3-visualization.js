@@ -11,14 +11,13 @@ angular.module('dataVisualization', ['d3', 'sseChat'])
                     d3Service.d3().then(function(d3) {
                         var margin = {top: 5, right: 40, bottom: 20, left: 120},
                             width = 960 - margin.left - margin.right,
-                            height = 50 - margin.top - margin.bottom;
+                            height = 80 - margin.top - margin.bottom;
 
                         var chart = d3.bullet()
                             .width(width)
                             .height(height);
 
-
-
+                        /*
                         scope.data = [
                             {
                                 "title":"Registrations",
@@ -28,12 +27,37 @@ angular.module('dataVisualization', ['d3', 'sseChat'])
                                 "markers":[250]
                             }
                         ];
+                         */
+
+                        scope.data = angular.element(document.getElementById('main')).scope().msgs;
+
+
+
+                        scope.$watch(function() {
+                            return angular.element(document.getElementById('main'))[0].offsetWidth;
+                        }, function() {
+                            scope.render(scope.data);
+                        });
 
                         scope.$watch('data', function(newData) {
                             scope.render(newData);
                         }, true);
 
-                        scope.render = function(data) {
+                        scope.render = function(eventData) {
+
+
+                            var countData = eventData.length;
+
+                            data = [
+                                {
+                                    "title":"Registrations",
+                                    "subtitle":"Number",
+                                    "ranges":[150,225,300],
+                                    "measures":[countData,280],
+                                    "markers":[250]
+                                }
+                            ];
+
 
                             var svg = d3.select(ele[0]).selectAll("svg")
                                 .data(data)
