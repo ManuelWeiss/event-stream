@@ -101,7 +101,7 @@ var REGISTRATIONS = function (Physics) {
 
             registrations[b.uid] = b;
 
-            window.setTimeout(removeCircle, 20000, b);
+            window.setTimeout(removeCircle, 18000, b);
         }
 
         function growCircle (circle) {

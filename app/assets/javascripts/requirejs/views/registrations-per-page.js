@@ -133,7 +133,7 @@ var REGISTRATIONS_PER_PAGE = function (Physics) {
 
         function tint (color) {
             for (var key in color) {
-                color[key] = color[key] > 8 ? color[key] - 1 : color[key];
+                color[key] = color[key] > 15 ? color[key] - 1 : color[key];
             }
 
             return color;
