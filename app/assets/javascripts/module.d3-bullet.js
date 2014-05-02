@@ -249,18 +249,6 @@ angular.module('bullet', ['d3', 'sseChat'])
                             };
                         }
 
-                        /*
-                        scope.data = [
-                            {
-                                "title":"Registrations",
-                                "subtitle":"Number",
-                                "ranges":[150,225,300],
-                                "measures":[220,270],
-                                "markers":[250]
-                            }
-                        ];
-                         */
-
                         var margin = {top: 5, right: 40, bottom: 20, left: 120},
                             width = 960 - margin.left - margin.right,
                             height = 80 - margin.top - margin.bottom;
@@ -278,9 +266,9 @@ angular.module('bullet', ['d3', 'sseChat'])
                                 return {
                                     "title":"Registrations",
                                     "subtitle":"Number",
-                                    "ranges":[150,225,300],
-                                    "measures":[countData, 280],
-                                    "markers":[250]
+                                    "ranges":[100,150,250],
+                                    "measures":[countData, 180],
+                                    "markers":[160]
                                 };
                             }
 
@@ -290,7 +278,7 @@ angular.module('bullet', ['d3', 'sseChat'])
                         data = [{
                             "title":"Registrations",
                             "subtitle":"Number",
-                            "ranges":[100,150,200],
+                            "ranges":[100,150,250],
                             "measures":[0, 180],
                             "markers":[160]
                         }];
