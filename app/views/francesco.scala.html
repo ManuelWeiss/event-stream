@@ -38,20 +38,28 @@
         </div>
 
         <div class="container">
-
             <div class="starter-template">
                 <h1>Page views on qa.dev</h1>
-                <div id="main" ng-controller="ChatCtrl">
-                    <div d3-graph bar-height="20" bar-padding="5"></div>
+                <div class="container" id="main" ng-controller="ChatCtrl">
+                    <div class="row">
+                        <div class="col-md-6" ng-click="count = 0" ng-init="count = 0">
+                            PieChart
+                        </div>
+                        <div class="col-md-6" ng-click="count = 1">
+                            BulletChart
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" ng-show="count === 0">
+                            <div d3-pie></div>
+                        </div>
+                        <div class="col-md-12" ng-show="count === 1">
+                            <div d3-bulletchart></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
-
-
-        <!--<div d3-visualization bar-height="20" bar-padding="5"></div>-->
-
-
 
         <script src='@routes.Assets.at("javascripts/app.js")'></script>
         <script src='@routes.Assets.at("javascripts/services.js")'></script>
@@ -59,7 +67,6 @@
 
         <script src='@routes.Assets.at("javascripts/module.d3.js")'></script>
         <script src='@routes.Assets.at("javascripts/module.d3-visualization.js")'></script>
-        <script src='@routes.Assets.at("javascripts/module.d3-graph.js")'></script>
  
     </body>
 </html>
